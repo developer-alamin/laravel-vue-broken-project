@@ -1,7 +1,8 @@
 import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
-import "bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css"
+
+import "./Pages/Admin/Data/script.js";
+import Layout from "./Pages/Admin/Layout/Layout.vue"
 createInertiaApp({
   resolve: name => {
     const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
@@ -9,6 +10,7 @@ createInertiaApp({
   },
   setup({ el, App, props, plugin }) {
     createApp({ render: () => h(App, props) })
+    .component("Layout",Layout)
       .use(plugin)
       .mount(el)
   },
