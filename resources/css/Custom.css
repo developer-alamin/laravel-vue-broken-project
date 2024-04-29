@@ -10,3 +10,26 @@ a.nav-link.active:hover,a.nav-link:hover{
     background-color: rgb(21, 255, 0) !important;
     color: white !important;
 }
+label{
+	font-weight: bolder;
+}
+ img.tdUsersImg{
+    width: 50px;
+    border-radius: 100%;
+}
+
+p.active {
+    background: green;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+}
+p.deactive {
+    background: red;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+}
+span.errors{
+    color: red;
+}

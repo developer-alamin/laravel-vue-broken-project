@@ -23,14 +23,9 @@
 	        </a>
 	        <ul id="StuId-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 	          <li>
-	            <Link :href="route('Admin.Student.Id.Page')" :active="route().current('Admin.Student.Id.Page')"> 
-	              <i class="bi bi-circle"></i><span>Id Add</span>
+	            <Link :href="route('Admin.View.Id.Page')" :active="route().current('Admin.View.Id.Page')"> 
+	              <i class="bi bi-circle"></i><span>View Student Id</span>
 	            </Link>
-	          </li>
-	          <li>
-	            <a href="">
-	              <i class="bi bi-circle"></i><span>Id List</span>
-	            </a>
 	          </li>
 	        </ul>
 	      </li>
@@ -42,15 +37,11 @@
 	        </a>
 	        <ul id="Class-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 	          <li>
-	            <a href="">
-	              <i class="bi bi-circle"></i><span>Class Add</span>
-	            </a>
+	            <Link :href="route('Admin.Class.View.Page')" :active="route().current('Admin.Class.View.Page')">
+	              <i class="bi bi-circle"></i><span>View Class</span>
+	            </Link>
 	          </li>
-	          <li>
-	            <a href="">
-	              <i class="bi bi-circle"></i><span>Class List</span>
-	            </a>
-	          </li>
+	          
 	        </ul>
 	      </li>
 	      <!-- End Class Nav -->

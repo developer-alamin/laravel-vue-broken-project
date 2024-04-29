@@ -1,6 +1,6 @@
 
 <script setup>
-  import toggles from "@/data/test.js";
+  import {toggles} from "@/data/Custom.js";
 	import ResponsiveNavLink from '@/Components/Custom/ResponsiveNavLink.vue';
 
 </script>

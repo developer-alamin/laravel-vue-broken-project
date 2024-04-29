@@ -9,7 +9,8 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import NProgress from 'nprogress'
 import { router } from '@inertiajs/vue3'
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
-
+import * as bootstrap from 'bootstrap';
+window.bootstrap = bootstrap;
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
