@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        "customer_id",
+        "national"
     ];
 
     /**
@@ -38,8 +40,21 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
+<<<<<<< HEAD
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+=======
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+
+    
+   
+>>>>>>> 58891ab (file has been updated)
 }

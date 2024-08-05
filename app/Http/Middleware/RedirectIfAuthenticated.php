@@ -17,12 +17,20 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, string ...$guards): Response
     {
+<<<<<<< HEAD:app/Http/Middleware/RedirectIfAuthenticated.php
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
                 return redirect(RouteServiceProvider::HOME);
             }
+=======
+        if ($role == "admin" && auth()->user()->isAdmin !== 1 ) {
+           return redirect()->back();
+        }
+        if ($role == "users" && auth()->user()->isAdmin !== 0 ) {
+            return redirect()->back();
+>>>>>>> 58891ab (file has been updated):app/Http/Middleware/CheckRole.php
         }
 
         return $next($request);
