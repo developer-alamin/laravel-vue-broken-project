@@ -15,10 +15,10 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next, string $role): Response
     {
-        if ($role == 'admin' && auth()->user()->role !== 'admin' ) {
+        if ($role == "admin" && auth()->user()->isAdmin !== 1 ) {
            return redirect()->back();
         }
-        if ($role == 'users' && auth()->user()->role !== 'users' ) {
+        if ($role == "users" && auth()->user()->isAdmin !== 0 ) {
             return redirect()->back();
         }
         return $next($request);

@@ -22,6 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        "customer_id",
+        "national"
     ];
 
     /**
@@ -47,8 +49,6 @@ class User extends Authenticatable
         ];
     }
 
-    public function profile() :HasOne{
-        return $this->hasOne(profile::class,"users_id");
-    }
+    
    
 }

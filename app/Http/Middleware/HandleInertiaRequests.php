@@ -38,6 +38,7 @@ class HandleInertiaRequests extends Middleware
             "success" => fn () => $request->session()->get('success'),
             "update" => fn () => $request->session()->get('update'),
             "delete" => fn () => $request->session()->get('delete'),
+            "error" => fn () => $request->session()->get('error'),
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),

@@ -15,11 +15,25 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->enum('role', ['users','admin'])->default('users');
+            $table->boolean("isAdmin")->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->timestamps();
+
+            $table->string("customer_id")->unique();
+            $table->string("phone")->nullable();
+            $table->string("village")->nullable();
+            $table->string("national")->nullable();
+            $table->string("father")->nullable();
+            $table->string("mother")->nullable();
+
+            $table->string("avatar")->nullable();
+            $table->string("address")->nullable();
+            $table->string("country")->nullable();
+            $table->string("state")->nullable();
+
+            $table->timestamp("created_at")->useCurrent();
+            $table->timestamp("updated_at")->useCurrent()->useCurrentOnUpdate();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

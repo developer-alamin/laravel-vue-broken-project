@@ -1,3 +1,21 @@
+
+
+
+
+
+
+img.customerimg,img.customerimgs{
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+}
+li.nav-item.parent a[data-bs-toggle="collapse"] {
+    background: #3d00ba !important;
+    color: white;
+}
+li.nav-item.parent a[data-bs-toggle="collapse"] i{
+    color: white;
+}
 a.nav-link.active {
     background: #1840d3;
     color: white !important;
@@ -23,12 +41,16 @@ p.active {
     color: white;
     font-weight: bold;
     border-radius: 10px;
+    text-align: center;
+    text-transform: capitalize;
 }
 p.deactive {
     background: red;
     color: white;
     font-weight: bold;
     border-radius: 10px;
+    text-align: center;
+    text-transform: capitalize;
 }
 span.errors{
     color: red;
