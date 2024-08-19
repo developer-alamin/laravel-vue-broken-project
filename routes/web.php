@@ -5,6 +5,8 @@
 
 use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Admin\CustomersController;
+use App\Http\Controllers\Admin\DailyInvoiceController;
+
 
 //Users Route Controller List
 use App\Http\Controllers\Users\UsersHomeController;
@@ -41,6 +43,13 @@ Route::group(["middleware"=>"auth"],function(){
        Route::prefix('admin')->group(function () {
             Route::get("/dashboard",[AdminHomeController::class,"AdminHomePage"])->name("Admin.Home.Page");
             Route::resource('customers', CustomersController::class)->shallow();
+
+            
+            Route::get("/invoice/list",[DailyInvoiceController::class,"list"])->name("invoice.list");
+            Route::put("invoice/status/update",[DailyInvoiceController::class,"InvoiceStatusUpdate"])->name("Invoice.Status.Update");
+           Route::resource('invoice', DailyInvoiceController::class)
+           ->shallow();
+
            
         });
     });

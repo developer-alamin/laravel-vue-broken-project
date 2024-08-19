@@ -1,9 +1,20 @@
+table{
+    width: 100% !important;
+}
+tr th,td{
+    text-align: center;
+}
+.gradientBtn {
+    background: linear-gradient(90deg, #7a12c0 0%, #ee35ab 35%, #ffb650 100%);
+    color: white;
+    font-weight: bold;
+    transition:all ease 0.6s;
+}
+.gradientBtn:hover{
+    background: linear-gradient(90deg, #ffb650 0%, #ee35ab 35%, #7a12c0 100%);
+    transition:all ease 0.6s;
 
-
-
-
-
-
+}
 img.customerimg,img.customerimgs{
     width: 60px;
     height: 60px;
@@ -36,19 +47,19 @@ label{
     border-radius: 100%;
 }
 
-p.active {
+p.active,p.paid {
     background: green;
     color: white;
     font-weight: bold;
-    border-radius: 10px;
+    border-radius: 5px;
     text-align: center;
     text-transform: capitalize;
 }
-p.deactive {
+p.deactive,p.unpaid {
     background: red;
     color: white;
     font-weight: bold;
-    border-radius: 10px;
+    border-radius: 5px;
     text-align: center;
     text-transform: capitalize;
 }

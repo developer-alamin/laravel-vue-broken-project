@@ -1,4 +1,4 @@
-
+import CKEditor from '@ckeditor/ckeditor5-vue';
 import '../css/app.css';
 import "../css/nprogress.css";
 import AdminLayout from "@/Layouts/Admin/Layout.vue";
@@ -18,6 +18,7 @@ createInertiaApp({
             .component("AdminLayout",AdminLayout)
             .use(plugin)
             .use(ZiggyVue)
+            .use(CKEditor)
             .mount(el);
     },
 });

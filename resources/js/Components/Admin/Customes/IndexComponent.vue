@@ -8,6 +8,7 @@
 			responsive: true,
 			pageLenght: [5],
 			lengthMenu: [5, 10, 25, 50, 100],
+			order : [0,'desc'],
 			}
 		);
 	});
@@ -32,7 +33,7 @@
 				<div class="card">
 					<div class="card-header d-flex align-items-center">
 						<h4>All Customers List</h4>
-						<Link :href="route('customers.create')" class="btn btn-outline-primary ms-auto">New Customer</Link>
+						<Link :href="route('customers.create')" class="btn gradientBtn ms-auto">New Customer</Link>
 					</div>
 					<div class="card-body">
 						<table id="Table" class="table table-bordered table-hover table-striped">

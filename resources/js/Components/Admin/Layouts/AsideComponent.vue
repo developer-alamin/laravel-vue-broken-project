@@ -30,8 +30,8 @@
 	         	 </Link>
 	    	</li>
 	      <!-- End Dashboard Nav -->
-	      <!-- Start Student Id Nav -->
-	      <li class="nav-item">
+	      <!-- Start Customers Nav -->
+	    <li class="nav-item">
 	        <a class="nav-link collapsed" data-bs-target="#StuId-nav" data-bs-toggle="collapse" href="#">
 	          <i class="bi bi-users"></i><span>Customers</span><i class="bi bi-chevron-down ms-auto"></i>
 	        </a>
@@ -49,7 +49,32 @@
 	          </li>
 	        </ul>
 	      </li>
-	      <!-- End Class Nav -->
+	      <!-- End Customers Nav -->
+	      <!-- Start Invoice Nav -->
+	      <li class="nav-item">
+	        <a class="nav-link collapsed" data-bs-target="#inv-nav" data-bs-toggle="collapse" href="#">
+	          <i class="bi bi-users"></i><span>Daily Invoice</span><i class="bi bi-chevron-down ms-auto"></i>
+	        </a>
+	        <ul id="inv-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+	          <li>
+	            <Link :href="route('invoice.create')" :active="route().current('invoice.create')"> 
+	              <i class="bi bi-circle"></i><span>Create Invoice</span>
+	            </Link>
+
+	          </li>
+	          <li>
+	            <Link :href="route('invoice.index')" :active="route().current('invoice.index')"> 
+	              <i class="bi bi-circle"></i><span>Today Invoice</span>
+	            </Link>
+	          </li>
+	          <li>
+	            <Link :href="route('invoice.list')" :active="route().current('invoice.list')"> 
+	              <i class="bi bi-circle"></i><span>All Invoice</span>
+	            </Link>
+	          </li>
+	        </ul>
+	      </li>
+	      <!-- End Customers Nav -->
 	    </ul>
 
 

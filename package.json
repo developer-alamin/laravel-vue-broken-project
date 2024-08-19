@@ -19,7 +19,11 @@
         "vue": "^3.4.0"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^42.0.2",
+        "@ckeditor/ckeditor5-vue": "^6.0.0",
         "bootstrap": "^5.3.3",
+        "ckeditor5": "^42.0.2",
+        "ckeditor5-premium-features": "^42.0.2",
         "datatables.net-bs5": "^2.0.5",
         "datatables.net-dt": "^2.0.5",
         "datatables.net-vue3": "^3.0.1",
