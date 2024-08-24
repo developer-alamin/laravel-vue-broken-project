@@ -50,18 +50,7 @@ class DailyInvoiceController extends Controller
 
         return Inertia::render("Admin/Invoice/list",compact("invoice"));
     }
-    public function InvoiceStatusUpdate(Request $request)
-    {
-        $invoice = dailyInvoice::findOrFail($request->id);
-        if ($invoice->status == 1) {
-            $status = 0;
-        }else {
-            $status = 1;
-        }
-        $invoice->status = $status;
-        $invoice->update();
-        return redirect()->back()->with("update","Updated Success");
-    }
+   
     /**
      * Show the form for creating a new resource.
      */

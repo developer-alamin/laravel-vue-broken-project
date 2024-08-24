@@ -51,7 +51,7 @@
 	      </li>
 	      <!-- End Customers Nav -->
 	      <!-- Start Invoice Nav -->
-	      <li class="nav-item">
+	    <li class="nav-item">
 	        <a class="nav-link collapsed" data-bs-target="#inv-nav" data-bs-toggle="collapse" href="#">
 	          <i class="bi bi-users"></i><span>Daily Invoice</span><i class="bi bi-chevron-down ms-auto"></i>
 	        </a>
@@ -73,8 +73,32 @@
 	            </Link>
 	          </li>
 	        </ul>
-	      </li>
-	      <!-- End Customers Nav -->
+	    </li>
+	      <!-- End Invoice Nav -->
+	       <!-- Start Invoice Nav -->
+	    <li class="nav-item">
+	        <a class="nav-link collapsed" data-bs-target="#product-nav" data-bs-toggle="collapse" href="#">
+	          <i class="bi bi-users"></i><span>Product</span><i class="bi bi-chevron-down ms-auto"></i>
+	        </a>
+	        <ul id="product-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+	          <li>
+	            <Link :href="route('product.create')" :active="route().current('product.create')"> 
+	              <i class="bi bi-circle"></i><span>Add Product</span>
+	            </Link>
+	          </li>
+	          <li>
+	            <Link :href="route('product.index')" :active="route().current('product.index')"> 
+	              <i class="bi bi-circle"></i><span>View Product</span>
+	            </Link>
+	          </li>
+	          <li>
+	            <Link :href="route('product.index')" :active="route().current('product.index')"> 
+	              <i class="bi bi-circle"></i><span>Product Update</span>
+	            </Link>
+	          </li>
+	        </ul>
+	    </li>
+	      <!-- End Invoice Nav -->
 	    </ul>
 
 

@@ -6,10 +6,15 @@
 use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\DailyInvoiceController;
+use App\Http\Controllers\Admin\ProductController;
 
 
 //Users Route Controller List
 use App\Http\Controllers\Users\UsersHomeController;
+//Default Route Controller List
+use App\Http\Controllers\DefaultController;
+
+
 //Auth Route Controller List
 use App\Http\Controllers\Auth\RedirectAuthenticatedUsersController;
 
@@ -28,7 +33,7 @@ Route::get('/', function () {
 
 
 Route::group(["middleware"=>"auth"],function(){
-
+  Route::put("status/update",[DefaultController::class,"StatusUpdate"])->name("status.update");
    Route::get("CheckRole",[RedirectAuthenticatedUsersController::class,"CheckRole"])->name("Auth.CheckRole");
    
    Route::group(['middleware' => 'checkRole:users'], function() {
@@ -42,15 +47,18 @@ Route::group(["middleware"=>"auth"],function(){
     Route::group(['middleware' => 'checkRole:admin'], function() {
        Route::prefix('admin')->group(function () {
             Route::get("/dashboard",[AdminHomeController::class,"AdminHomePage"])->name("Admin.Home.Page");
+            //Customers Resource Route Start
             Route::resource('customers', CustomersController::class)->shallow();
-
-            
+            //Customers Resource Route End
+            //Invoice Resource Route Start
             Route::get("/invoice/list",[DailyInvoiceController::class,"list"])->name("invoice.list");
-            Route::put("invoice/status/update",[DailyInvoiceController::class,"InvoiceStatusUpdate"])->name("Invoice.Status.Update");
+            
            Route::resource('invoice', DailyInvoiceController::class)
            ->shallow();
-
-           
+           //Invoice Resource Route End
+           //Product Resource Route Start
+           Route::resource("product",ProductController::class)->shallow();
+            //Product Resource Route End
         });
     });
 

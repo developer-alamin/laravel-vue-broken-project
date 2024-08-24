@@ -1,27 +1,16 @@
-
 <script setup>
 	import {useForm,usePage,Head, Link,router} from '@inertiajs/vue3';
 	import moment from 'moment';
-
-	import { reactive,ref} from 'vue';
+	import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+	import { reactive,ref,onMounted} from 'vue';
 	const page = usePage();
 	const lodding = ref("<strong>Processing...</strong>");
-	const props = defineProps({invoice:Object});
-	const getInvoices = ()=>{
-		return props.invoice;
+	const props = defineProps({errors:Object,data:Object});
+	const getData = ()=>{
+		return props.data;
 	}
-	$(document).ready( function () {
-		$('#table').DataTable(
-			{
-			responsive: true,
-			pageLenght: [5],
-			lengthMenu: [5, 10, 25, 50, 100],
-			}
-		);
-	});
 	const form = useForm({
-		id:'',
-		table:'dailyInvoice'
+		id:''
 	});
 	if (page.props.update) {
 		Swal.fire({
@@ -30,6 +19,16 @@
 			icon: "success"
 		});
 	}
+	$(document).ready( function () {
+		$('#table').DataTable(
+			{
+			responsive: true,
+			pageLenght: [5],
+			lengthMenu: [5, 10, 25, 50, 100],
+			order : [0,'desc'],
+			}
+		);
+	});
 	const status = (id)=>{
 		return (id == 1) ? "Paid" : "Unpaid";
 	}
@@ -71,7 +70,7 @@
     }
     const toggleSwitch = (id)=>{
     	form.id = id;
-    	 form.put(route("status.update"),{
+    	 form.put(route("Invoice.Status.Update"),{
             preserveScroll: true,
             onSuccess:()=>{
                 Swal.fire({
@@ -82,7 +81,6 @@
             }
         });
     }
-	
 </script>
 <template>
 	<article>
@@ -90,7 +88,7 @@
 			<div class="col-12">
 				<div class="card">
 					<div class="card-header d-flex align-items-center">
-						<h4>Today Invoice</h4>
+						<h4> {{ moment(getData()["date"]).format('LL')}} Customers Invoice </h4>
 						<Link :href="route('invoice.list')" class="btn gradientBtn ms-auto">All Invoice</Link>
 					</div>
 					<div class="card-body">
@@ -102,14 +100,14 @@
 									<th>Taka</th>
 									<th>Phone</th>
 									<th>Photo</th>
-									<th>Create</th>
+									<th>Date</th>
 									<th>Status</th>
 									<th>Update</th>
 									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr v-for="(data,i) in getInvoices()['data']">
+								<tr v-for="(data,i) in getData()['customers']">
 									<td>{{i+1}}</td>
 									<td>{{data.users.name}}</td>
 									<td>{{data.taka }}</td>
@@ -132,8 +130,8 @@
 									</td>
 									<td class="text-center">
 										<Link :href="route('invoice.edit',data.id)" class="btn btn-outline-success"><i class="fas fa-edit"></i></Link>
-										<button class="btn btn-outline-primary"><i class="fas fa-eye"></i></button>
-										<button @click="deleted(data.id)" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+										<Link class="btn btn-outline-primary"><i class="fas fa-eye"></i></Link>
+										<Link @click="deleted(data.id)" class="btn btn-outline-danger"><i class="fas fa-trash"></i></Link>
 									</td>
 								</tr>
 							</tbody>
@@ -143,7 +141,6 @@
 			</div>
 		</div>
 	</article>
-	
 </template>
 <style scoped>
 	img{

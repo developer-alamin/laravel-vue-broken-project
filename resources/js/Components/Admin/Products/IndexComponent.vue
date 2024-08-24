@@ -6,9 +6,9 @@
 	import { reactive,ref} from 'vue';
 	const page = usePage();
 	const lodding = ref("<strong>Processing...</strong>");
-	const props = defineProps({invoice:Object});
-	const getInvoices = ()=>{
-		return props.invoice;
+	const props = defineProps({products:Object});
+	const getProducts = ()=>{
+		return props.products;
 	}
 	$(document).ready( function () {
 		$('#table').DataTable(
@@ -21,7 +21,7 @@
 	});
 	const form = useForm({
 		id:'',
-		table:'dailyInvoice'
+		table:'Product'
 	});
 	if (page.props.update) {
 		Swal.fire({
@@ -31,13 +31,13 @@
 		});
 	}
 	const status = (id)=>{
-		return (id == 1) ? "Paid" : "Unpaid";
+		return (id == 1) ? "Active" : "Deactive";
 	}
 	const deleted = (id)=>{
         form.id = id;
         Swal.fire({
             title: "Are you sure?",
-            text: "Your Daily Invoice Deleted ?",
+            text: "Your Product Deleted ?",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -45,7 +45,7 @@
             confirmButtonText: "Yes"
             }).then((result) => {
             if (result.isConfirmed) {
-                form.delete(route("invoice.destroy",form.id),{
+                form.delete(route("product.destroy",form.id),{
                     preserveScroll: true,
                     onSuccess:()=>{
                         Swal.fire({
@@ -82,7 +82,7 @@
             }
         });
     }
-	
+ 
 </script>
 <template>
 	<article>
@@ -90,8 +90,8 @@
 			<div class="col-12">
 				<div class="card">
 					<div class="card-header d-flex align-items-center">
-						<h4>Today Invoice</h4>
-						<Link :href="route('invoice.list')" class="btn gradientBtn ms-auto">All Invoice</Link>
+						<h4>Product All List</h4>
+						<Link :href="route('product.create')" class="btn gradientBtn ms-auto">Add New</Link>
 					</div>
 					<div class="card-body">
 						<table id="table" class="table table-bordered table-hover table-striped">
@@ -99,8 +99,8 @@
 								<tr>
 									<th>Sr</th>
 									<th>Name</th>
-									<th>Taka</th>
-									<th>Phone</th>
+									<th>Price</th>
+									<th>Regualar Price</th>
 									<th>Photo</th>
 									<th>Create</th>
 									<th>Status</th>
@@ -109,15 +109,15 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr v-for="(data,i) in getInvoices()['data']">
+								<tr v-for="(data,i) in getProducts()">
 									<td>{{i+1}}</td>
-									<td>{{data.users.name}}</td>
-									<td>{{data.taka }}</td>
+									<td>{{data.name}}</td>
+									<td>{{data.price }}</td>
 										
-									<td>{{data.users.phone }}</td>
+									<td>{{data.current }}</td>
 									
 									<td>
-										<img v-if="data.users.avatar" :src="data.users.avatar">
+										<img v-if="data.img" :src="data.img">
 										<img v-else="" src="../../../../../public/img/avater.jpg" alt="">
 									</td>
 									<td>{{ moment(data.created_at).format("LLL") }}</td>
@@ -131,7 +131,7 @@
 
 									</td>
 									<td class="text-center">
-										<Link :href="route('invoice.edit',data.id)" class="btn btn-outline-success"><i class="fas fa-edit"></i></Link>
+										<Link :href="route('product.edit',data.id)" class="btn btn-outline-success"><i class="fas fa-edit"></i></Link>
 										<button class="btn btn-outline-primary"><i class="fas fa-eye"></i></button>
 										<button @click="deleted(data.id)" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
 									</td>

@@ -10,7 +10,8 @@
 		return props.data;
 	}
 	const form = useForm({
-		id:''
+		id:'',
+		table:'dailyInvoice'
 	});
 	if (page.props.update) {
 		Swal.fire({
@@ -70,7 +71,7 @@
     }
     const toggleSwitch = (id)=>{
     	form.id = id;
-    	 form.put(route("Invoice.Status.Update"),{
+    	 form.put(route("status.update"),{
             preserveScroll: true,
             onSuccess:()=>{
                 Swal.fire({
