@@ -57,6 +57,11 @@ Route::group(["middleware"=>"auth"],function(){
            ->shallow();
            //Invoice Resource Route End
            //Product Resource Route Start
+           Route::controller(ProductController::class)
+            ->prefix("product")
+            ->group(function () {
+                Route::delete('update/item/delete', 'ProductUpdateItemDelete')->name("Product.Update.Item.Delete");
+            });
            Route::resource("product",ProductController::class)->shallow();
             //Product Resource Route End
         });

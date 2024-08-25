@@ -17,11 +17,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->get();
-       // dd($products->toArray());
+        $products = Product::latest()->with("Updates")->get();
+       //dd($products->toArray());
         return Inertia::render("Admin/Products/Index",compact("products"));
+        
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -45,7 +45,10 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        $data["product"] = $product;
+        $data["update"] = $product->Updates()->latest()->get();
+        //dd($products->toArray());
+        return Inertia::render("Admin/Products/Show",compact("data"));
     }
 
     /**
@@ -127,6 +130,15 @@ class ProductController extends Controller
         }
        $product->Updates()->delete();
        $product->delete();
+        return redirect()->back()->with("delete","Deleted Success");
+    }
+
+    public function ProductUpdateItemDelete(Request $request)
+    {
+        $data = productUpdate::find($request->id)->each(function($a,$key){
+            $a->delete();
+        });
+      
         return redirect()->back()->with("delete","Deleted Success");
     }
 }

@@ -1,7 +1,6 @@
 <script setup>
 	import {useForm,usePage,Head, Link,router} from '@inertiajs/vue3';
 	import moment from 'moment';
-	import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 	import { reactive,ref,onMounted} from 'vue';
 	const page = usePage();
 	const lodding = ref("<strong>Processing...</strong>");
@@ -9,31 +8,42 @@
 	const getData = ()=>{
 		return props.data;
 	}
+
 	const form = useForm({
-		id:''
+		id:[]
 	});
-	if (page.props.update) {
-		Swal.fire({
-			title: "Success!",
-			text: "Daily Invoice Data Updated!",
-			icon: "success"
-		});
-	}
+	
 	$(document).ready( function () {
 		$('#table').DataTable(
 			{
 			responsive: true,
 			pageLenght: [5],
 			lengthMenu: [5, 10, 25, 50, 100],
-			order : [0,'desc'],
 			}
 		);
 	});
-	const status = (id)=>{
-		return (id == 1) ? "Paid" : "Unpaid";
+
+	onMounted(()=>{
+		
+
+	});
+	const allcheck =()=>{
+
+		let check = document.querySelectorAll(".check");
+		check.forEach((item,i)=>{
+			if (item.checked) {
+				item.checked = false;
+				form.id = [];
+			}else {
+				item.checked = true;
+				form.id[i] = item.value;
+			}
+		})
 	}
-	const deleted = (id)=>{
-        form.id = id;
+	const status = (id)=>{
+		return (id == 1) ? "Active" : "Deactive";
+	}
+	const UpdateItemDel = ()=>{
         Swal.fire({
             title: "Are you sure?",
             text: "Your Daily Invoice Deleted ?",
@@ -44,7 +54,7 @@
             confirmButtonText: "Yes"
             }).then((result) => {
             if (result.isConfirmed) {
-                form.delete(route("invoice.destroy",form.id),{
+                form.delete(route("Product.Update.Item.Delete"),{
                     preserveScroll: true,
                     onSuccess:()=>{
                         Swal.fire({
@@ -52,6 +62,7 @@
                             text: "Your Data has been deleted.",
                             icon: "success"
                         });
+                        form.id = [];
                     },
                     onError:()=>{
                         Toastify({
@@ -68,73 +79,73 @@
             }
         });
     }
-    const toggleSwitch = (id)=>{
-    	form.id = id;
-    	 form.put(route("Invoice.Status.Update"),{
-            preserveScroll: true,
-            onSuccess:()=>{
-                Swal.fire({
-                    title: "Success!",
-                    text: "Your Data has been Updated.",
-                    icon: "success"
-                });
-            }
-        });
-    }
+    
 </script>
 <template>
 	<article>
 		<div class="row">
+			<div class="col-12 pb-2">
+				<div class="d-flex align-items-center">
+				  <img  class="mr-3" :src="getData().product.img">
+				  <div class="media-body ms-3">
+				   	 <div>
+				   	 	<b class="mt-0">Price: </b>
+				   	 	<span>{{ getData().product.price }}</span>
+				   	 </div>
+				   	 <div>
+				   	 	<b class="mt-0">Regualar Price: </b>
+				   	 	<span>{{ getData().product.current }}</span>
+				   	 </div>
+				  </div>
+				</div>
+			</div>
 			<div class="col-12">
 				<div class="card">
 					<div class="card-header d-flex align-items-center">
-						<h4> {{ moment(getData()["date"]).format('LL')}} Customers Invoice </h4>
-						<Link :href="route('invoice.list')" class="btn gradientBtn ms-auto">All Invoice</Link>
+						<h4> {{ getData().product.name }} Update List </h4>
+						
+						<Link :href="route('product.index')" class="btn gradientBtn ms-auto">View Product</Link>
 					</div>
 					<div class="card-body">
+						
 						<table id="table" class="table table-bordered table-hover table-striped">
+
 							<thead>
 								<tr>
+									<th>#
+									<input type="checkbox" class="allcheck" name="allcheck" @click="allcheck()">
+									</th>
 									<th>Sr</th>
-									<th>Name</th>
-									<th>Taka</th>
-									<th>Phone</th>
-									<th>Photo</th>
+									<th>Price</th>
+									<th>Regular Price</th>
 									<th>Date</th>
 									<th>Status</th>
-									<th>Update</th>
-									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr v-for="(data,i) in getData()['customers']">
-									<td>{{i+1}}</td>
-									<td>{{data.users.name}}</td>
-									<td>{{data.taka }}</td>
-										
-									<td>{{data.users.phone }}</td>
-									
+								<tr v-for="(data,i) in getData()['update']">
 									<td>
-										<img v-if="data.users.avatar" :src="data.users.avatar">
-										<img v-else="" src="../../../../../public/img/avater.jpg" alt="">
+										<input v-model="form.id" type="checkbox" class="check" name="check" :value="data.id">
 									</td>
+									<td>{{i+1}}</td>
+									<td>{{data.price }}</td>
+										
+									<td>{{data.current }}</td>
+
 									<td>{{ moment(data.created_at).format("LLL") }}</td>
 									<td>
 										<p :class="status(data.status).toLowerCase()">{{status(data.status)}}</p>
 									</td>
-									<td>
-									<div class="form-check form-switch">
-									   <input @click="toggleSwitch(data.id)" class="form-check-input" type="checkbox" role="switch" :checked="data.status == 1">
-									</div>
-
-									</td>
-									<td class="text-center">
-										<Link :href="route('invoice.edit',data.id)" class="btn btn-outline-success"><i class="fas fa-edit"></i></Link>
-										<Link class="btn btn-outline-primary"><i class="fas fa-eye"></i></Link>
-										<Link @click="deleted(data.id)" class="btn btn-outline-danger"><i class="fas fa-trash"></i></Link>
-									</td>
+									
 								</tr>
 							</tbody>
+							<tfoot v-if="form.id.length > 0">
+						    <tr>
+						      <td>
+						      	<button @click="UpdateItemDel()" class="btn btn-outline-danger form-control"><i class="fas fa-trash"></i></button>
+						      </td>
+						    </tr>
+						  </tfoot>
 						</table>
 					</div>
 				</div>
@@ -144,7 +155,7 @@
 </template>
 <style scoped>
 	img{
-		width: 50px;
-		height:50px;
+		width: 100px;
+		height:100px;
 	}
 </style>

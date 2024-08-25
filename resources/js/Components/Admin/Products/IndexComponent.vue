@@ -118,7 +118,7 @@
 									
 									<td>
 										<img v-if="data.img" :src="data.img">
-										<img v-else="" src="../../../../../public/img/avater.jpg" alt="">
+									   <img v-else="" src="../../../../../public/img/avater.jpg" alt="">
 									</td>
 									<td>{{ moment(data.created_at).format("LLL") }}</td>
 									<td>
@@ -132,7 +132,8 @@
 									</td>
 									<td class="text-center">
 										<Link :href="route('product.edit',data.id)" class="btn btn-outline-success"><i class="fas fa-edit"></i></Link>
-										<button class="btn btn-outline-primary"><i class="fas fa-eye"></i></button>
+										<Link v-if="data.updates.length > 0" :href="route('product.show',data.id)" class="btn btn-outline-primary"><i class="fas fa-eye"></i></Link>
+
 										<button @click="deleted(data.id)" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
 									</td>
 								</tr>

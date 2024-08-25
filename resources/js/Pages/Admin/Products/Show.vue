@@ -4,7 +4,7 @@
 	const props = defineProps({data:Object});
 </script>
 <template>
-	<Head title="Invoice Show Page" />
+	<Head title="Product Show Page" />
     <AdminLayout>
        <ProductShowComp :data="props.data"></ProductShowComp>
     </AdminLayout>

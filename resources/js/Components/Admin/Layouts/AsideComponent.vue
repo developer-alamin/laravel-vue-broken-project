@@ -91,11 +91,6 @@
 	              <i class="bi bi-circle"></i><span>View Product</span>
 	            </Link>
 	          </li>
-	          <li>
-	            <Link :href="route('product.index')" :active="route().current('product.index')"> 
-	              <i class="bi bi-circle"></i><span>Product Update</span>
-	            </Link>
-	          </li>
 	        </ul>
 	    </li>
 	      <!-- End Invoice Nav -->
